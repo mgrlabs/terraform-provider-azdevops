@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	azuredevopsapi "github.com/mgrlabs/go-azure-devops-api"
+	azuredevopsapi "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
 
 func resourceAzureDevOpsProject() *schema.Resource {

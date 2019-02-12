@@ -11,17 +11,17 @@ func Provider() *schema.Provider {
 			"organization_name": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "Azure DevOps organization",
+				Description: "Azure DevOps organization name",
 			},
 			"personal_access_token": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "Password access token",
+				Description: "Personal Access Token to create Azure DevOps resources",
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"azuredevops_project":      resourceAzureDevOpsProject(),
-			"azuredevops_workitemtask": resourceAzureDevOpsWorkItemTask(),
+			"azdevops_project":      resourceAzureDevOpsProject(),
+			"azdevops_workitemtask": resourceAzureDevOpsWorkItemTask(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
