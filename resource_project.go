@@ -39,9 +39,11 @@ func resourceAzureDevOpsProject() *schema.Resource {
 }
 
 func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
+	// Get provider information
 	provider := m.(*Client)
-	projectname := d.Get("name").(string)
-	data := azuredevopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectname)
+	// Get the name of the project from the name field
+	projectName := d.Get("name").(string)
+	data := azuredevopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName)
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }

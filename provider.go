@@ -27,6 +27,7 @@ func Provider() *schema.Provider {
 	}
 }
 
+// Provider configuration
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 	config := Config{
