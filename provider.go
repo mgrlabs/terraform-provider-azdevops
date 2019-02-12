@@ -20,8 +20,7 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"azdevops_project":      resourceAzureDevOpsProject(),
-			"azdevops_workitemtask": resourceAzureDevOpsWorkItemTask(),
+			"azdevops_project": resourceAzureDevOpsProject(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
