@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	azuredevopsapi "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
+	devopsapi "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
 
 func resourceAzureDevOpsProject() *schema.Resource {
@@ -43,7 +43,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	provider := m.(*Client)
 	// Get the name of the project from the name field
 	projectName := d.Get("name").(string)
-	data := azuredevopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName)
+	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName)
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }
