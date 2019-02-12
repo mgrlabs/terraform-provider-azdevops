@@ -42,8 +42,8 @@ func resourceAzureDevOpsProject() *schema.Resource {
 func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider information
 	provider := m.(*Client)
-	// Get the name of the project from the name field
-
+	projectName := d.Get("name").(string)
+	description := d.Get("description").(string)
 	workItemProcess := d.Get("work_item_process").(string)
 	processTemplates := map[string]string{
 		"Agile": "adcc42ab-9882-485e-a3ed-7678f01f66bc",
@@ -51,8 +51,8 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 		"CMMI":  "27450541-8e31-4150-9947-dc59f998fc01",
 	}
 
-	projectName := d.Get("name").(string)
-	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, processTemplates[workItemProcess])
+	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, processTemplates[workItemProcess], description)
+
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }
