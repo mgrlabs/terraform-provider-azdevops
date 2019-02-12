@@ -11,6 +11,7 @@ func Provider() *schema.Provider {
 			"organization_name": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
+				DefaultFunc: schema.EnvDefaultFunc("AZURE_DEVOPS_ORG", ""),
 				Description: "Azure DevOps organization name",
 			},
 			"personal_access_token": &schema.Schema{

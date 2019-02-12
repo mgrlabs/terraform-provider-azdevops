@@ -2,3 +2,4 @@
 *.tfstate*
 terraform*
 *.tf
+scripts/devops_api.sh
