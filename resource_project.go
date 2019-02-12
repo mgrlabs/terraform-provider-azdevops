@@ -13,7 +13,7 @@ func resourceAzureDevOpsProject() *schema.Resource {
 		Delete: resourceProjectDelete,
 
 		Schema: map[string]*schema.Schema{
-			"projectname": &schema.Schema{
+			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
 			},
@@ -21,10 +21,6 @@ func resourceAzureDevOpsProject() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "",
-			},
-			"summary": &schema.Schema{
-				Type:     schema.TypeString,
-				Required: true,
 			},
 		},
 	}
@@ -36,7 +32,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 
 	//organization := d.Get("organization").(string)
 	//pat := d.Get("pat").(string)
-	projectname := d.Get("projectname").(string)
+	projectname := d.Get("name").(string)
 
 	data := azuredevopsapi.CreateProject(provider.config.Pat, provider.config.Organization, projectname)
 
