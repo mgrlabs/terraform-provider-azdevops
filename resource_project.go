@@ -33,6 +33,7 @@ func resourceAzureDevOpsProject() *schema.Resource {
 			"work_item_process": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Default:  "adcc42ab-9882-485e-a3ed-7678f01f66bc",
 			},
 		},
 	}
@@ -43,7 +44,8 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	provider := m.(*Client)
 	// Get the name of the project from the name field
 	projectName := d.Get("name").(string)
-	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName)
+	workItemProcess := d.Get("work_item_process").(string)
+	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, workItemProcess)
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }
