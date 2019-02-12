@@ -8,12 +8,11 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"organisation_name": &schema.Schema{
+			"organization_name": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "Azure DevOps organization",
 			},
-
 			"personal_access_token": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
@@ -31,7 +30,7 @@ func Provider() *schema.Provider {
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 	config := Config{
-		Organization: d.Get("organisation_name").(string),
+		Organization: d.Get("organization_name").(string),
 		Pat:          d.Get("personal_access_token").(string),
 	}
 	return config.Client()
