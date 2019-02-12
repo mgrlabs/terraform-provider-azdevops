@@ -43,9 +43,16 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider information
 	provider := m.(*Client)
 	// Get the name of the project from the name field
-	projectName := d.Get("name").(string)
+
 	workItemProcess := d.Get("work_item_process").(string)
-	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, workItemProcess)
+	processTemplates := map[string]string{
+		"Agile": "adcc42ab-9882-485e-a3ed-7678f01f66bc",
+		"Scrum": "6b724908-ef14-45cf-84f8-768b5384da45",
+		"CMMI":  "27450541-8e31-4150-9947-dc59f998fc01",
+	}
+
+	projectName := d.Get("name").(string)
+	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, processTemplates[workItemProcess])
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }
