@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	devopsapi "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
@@ -52,6 +54,8 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, processTemplates[workItemProcess], description)
+
+	fmt.Println(data)
 
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
