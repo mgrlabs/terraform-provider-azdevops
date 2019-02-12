@@ -16,6 +16,7 @@ func Provider() *schema.Provider {
 			"personal_access_token": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
+				DefaultFunc: schema.EnvDefaultFunc("AZURE_DEVOPS_PAT", ""),
 				Description: "Personal Access Token to create Azure DevOps resources",
 			},
 		},
