@@ -22,22 +22,27 @@ func resourceAzureDevOpsProject() *schema.Resource {
 				Optional: true,
 				Default:  "",
 			},
+			"visibility": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"version_control": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"work_item_process": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 		},
 	}
 }
 
 func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
-
 	provider := m.(*Client)
-
-	//organization := d.Get("organization").(string)
-	//pat := d.Get("pat").(string)
 	projectname := d.Get("name").(string)
-
-	data := azuredevopsapi.CreateProject(provider.config.Pat, provider.config.Organization, projectname)
-
+	data := azuredevopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectname)
 	d.SetId(data.ID)
-
 	return resourceProjectRead(d, m)
 }
 

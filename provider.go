@@ -30,8 +30,8 @@ func Provider() *schema.Provider {
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 	config := Config{
-		Organization: d.Get("organization_name").(string),
-		Pat:          d.Get("personal_access_token").(string),
+		Organization:        d.Get("organization_name").(string),
+		PersonalAccessToken: d.Get("personal_access_token").(string),
 	}
 	return config.Client()
 }

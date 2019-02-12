@@ -1,8 +1,8 @@
 package main
 
 type Config struct {
-	Organization string
-	Pat          string
+	Organization        string
+	PersonalAccessToken string
 }
 
 // Client represents the DNSimple provider client.

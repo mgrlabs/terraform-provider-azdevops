@@ -37,7 +37,7 @@ func resourceWorkItemCreate(d *schema.ResourceData, m interface{}) error {
 	projectname := d.Get("projectname").(string)
 	title := d.Get("title").(string)
 
-	data := azuredevopsapi.CreateWorkItem(provider.config.Pat, provider.config.Organization, projectname, title)
+	data := azuredevopsapi.CreateWorkItem(provider.config.PersonalAccessToken, provider.config.Organization, projectname, title)
 
 	d.SetId(strconv.Itoa(data.ID))
 
