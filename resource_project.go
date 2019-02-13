@@ -50,13 +50,8 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	description := d.Get("description").(string)
 	versionControl := d.Get("version_control").(string)
 	workItemProcess := d.Get("work_item_process").(string)
-	processTemplates := map[string]string{
-		"Agile": "adcc42ab-9882-485e-a3ed-7678f01f66bc",
-		"Scrum": "6b724908-ef14-45cf-84f8-768b5384da45",
-		"CMMI":  "27450541-8e31-4150-9947-dc59f998fc01",
-	}
 
-	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, processTemplates[workItemProcess], description, versionControl)
+	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, workItemProcess, description, versionControl)
 
 	fmt.Println(data)
 
