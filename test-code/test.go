@@ -17,18 +17,18 @@ import (
 // 	} `json:"capabilities"`
 // }
 
-// {
-//   "name": "${managedBy}",
-//   "description": "Department: ${department} \nPortfolio Manager: ${portfolioManager} \nProduct Team: ${managedBy} \nProject created: ${dateStamp}",
-//   "capabilities": {
-//     "versioncontrol": {
-//       "sourceControlType": "Git"
-//     },
-//     "processTemplate": {
-//       "templateTypeId": "adcc42ab-9882-485e-a3ed-7678f01f66bc"
-//     }
-//   }
-// }
+{
+  "name": "${managedBy}",
+  "description": "Department: ${department} \nPortfolio Manager: ${portfolioManager} \nProduct Team: ${managedBy} \nProject created: ${dateStamp}",
+  "capabilities": {
+    "versioncontrol": {
+      "sourceControlType": "Git"
+    },
+    "processTemplate": {
+      "templateTypeId": "adcc42ab-9882-485e-a3ed-7678f01f66bc"
+    }
+  }
+}
 
 type App struct {
 	Id string `json:"id"`
@@ -45,5 +45,5 @@ type AppWithOrg struct {
 
 func main() {
 	var app AppWithOrg
-	test := json.Marshal(app)
+	// test := json.Marshal(app)
 }

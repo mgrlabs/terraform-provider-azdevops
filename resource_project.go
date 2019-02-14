@@ -46,12 +46,18 @@ func resourceAzureDevOpsProject() *schema.Resource {
 func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider information
 	provider := m.(*Client)
-	projectName := d.Get("name").(string)
-	description := d.Get("description").(string)
-	versionControl := d.Get("version_control").(string)
-	workItemProcess := d.Get("work_item_process").(string)
+	// projectName := d.Get("name").(string)
+	// description := d.Get("description").(string)
+	// versionControl := d.Get("version_control").(string)
+	// workItemProcess := d.Get("work_item_process").(string)
 
-	data := devopsapi.CreateProject(provider.config.PersonalAccessToken, provider.config.Organization, projectName, workItemProcess, description, versionControl)
+	data := devopsapi.CreateProject(
+		provider.config.PersonalAccessToken,
+		provider.config.Organization,
+		d.Get("name").(string),
+		d.Get("work_item_process").(string),
+		d.Get("description").(string),
+		d.Get("version_control").(string))
 
 	fmt.Println(data)
 

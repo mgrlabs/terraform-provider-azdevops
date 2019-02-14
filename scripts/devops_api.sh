@@ -7,3 +7,10 @@ curl -s -H "Authorization: Basic $PAT_ENCODED" \
 
 curl -s -H "Authorization: Basic $PAT_ENCODED" \
   -X GET https://dev.azure.com/$AZDO_ORG/_apis/projects/2227dc88-9503-4c4e-8918-6da802e3ebe0/properties?api-version=5.0-preview.1 | jq
+
+curl -s -H "Authorization: Basic $PAT_ENCODED" \
+  -X GET https://dev.azure.com/$AZDO_ORG/_apis/work/processes?api-version=5.0-preview.2
+
+
+
+export/{id}?api-version=5.0-preview.1
