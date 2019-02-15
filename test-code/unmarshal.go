@@ -1,8 +1,11 @@
 package main
 
+import "encoding/json"
+
 func main() {
 
-	inputJson := `{
+	inputJson := `
+		{
 			"count": 3,
 			"value": [
 				{
@@ -39,7 +42,7 @@ func main() {
 		}`
 
 	// fmt.Printf(inputJson)
-	var json []Json
-	json.Unmarshal([]byte(birdJson), &birds)
+	var birds []Json
+	json.Unmarshal([]byte(inputJson), &birds)
 
 }

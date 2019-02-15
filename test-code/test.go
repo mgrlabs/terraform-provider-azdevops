@@ -2,48 +2,36 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// type Config struct {
-// 	Name        string `json:"name"`
-// 	Description string `json:"description"`
-// 	Server      struct {
-// 		Capabilities struct {
-// 			sourceControlType string `json:"sourceControlType"`
-// 		} `json:"versioncontrol"`
-// 		Postgres struct {
-// 			TemplateID string `json:"templateTypeId"`
-// 		} `json:"processTemplate"`
-// 	} `json:"capabilities"`
-// }
-
-{
-  "name": "${managedBy}",
-  "description": "Department: ${department} \nPortfolio Manager: ${portfolioManager} \nProduct Team: ${managedBy} \nProject created: ${dateStamp}",
-  "capabilities": {
-    "versioncontrol": {
-      "sourceControlType": "Git"
-    },
-    "processTemplate": {
-      "templateTypeId": "adcc42ab-9882-485e-a3ed-7678f01f66bc"
-    }
-  }
-}
-
-type App struct {
-	Id string `json:"id"`
-}
-
-type Org struct {
-	Name string `json:"name"`
-}
-
-type AppWithOrg struct {
-	App
-	Org
+type Config struct {
+	Server struct {
+		Host string `json:"host"`
+		Port string `json:"port"`
+	} `json:"server"`
+	Postgres struct {
+		Host     string `json:"host"`
+		User     string `json:"user"`
+		Password string `json:"password"`
+		DB       string `json:"db"`
+	} `json:"database"`
 }
 
 func main() {
-	var app AppWithOrg
-	// test := json.Marshal(app)
+	jsonConfig := []byte(`{
+			"server":{
+					"host":"localhost",
+					"port":"8080"},
+			"database":{
+					"host":"localhost",
+					"user":"db_user",
+					"password":"supersecret",
+					"db":"my_db"}}`)
+	var config Config
+	err := json.Unmarshal(jsonConfig, &config)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Config: %+v\n", config)
 }
