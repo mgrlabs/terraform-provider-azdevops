@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/hashicorp/terraform/helper/schema"
-	devopsapi "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
+	coreproject "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
 
 func resourceAzureDevOpsProject() *schema.Resource {
@@ -27,7 +25,6 @@ func resourceAzureDevOpsProject() *schema.Resource {
 			"visibility": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				// Default:  "Git",
 			},
 			"version_control": &schema.Schema{
 				Type:     schema.TypeString,
@@ -44,22 +41,18 @@ func resourceAzureDevOpsProject() *schema.Resource {
 }
 
 func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
-	// Get provider information
+	// Get provider parameters
 	provider := m.(*Client)
-	// projectName := d.Get("name").(string)
-	// description := d.Get("description").(string)
-	// versionControl := d.Get("version_control").(string)
-	// workItemProcess := d.Get("work_item_process").(string)
 
-	data := devopsapi.CreateProject(
+	// Call CreateProject API and pass in required parms
+	data := coreproject.CreateProject(
 		provider.config.PersonalAccessToken,
 		provider.config.Organization,
 		d.Get("name").(string),
 		d.Get("work_item_process").(string),
 		d.Get("description").(string),
-		d.Get("version_control").(string))
-
-	fmt.Println(data)
+		d.Get("version_control").(string),
+	)
 
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)

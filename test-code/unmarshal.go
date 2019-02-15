@@ -1,14 +1,12 @@
 package main
 
-import "fmt"
-
 func main() {
 
 	inputJson := `{
 			"count": 3,
 			"value": [
 				{
-					"typeId": "27450541-8e31-4150-9947-dc59f998fc01",
+					"typeId": "27450541-8e31-4150-99x47-dc59f998fc01",
 					"name": "CMMI",
 					"referenceName": null,
 					"description": "This template is for more formal projects requiring a framework for process improvement and an auditable record of decisions.",
@@ -40,5 +38,8 @@ func main() {
 			]
 		}`
 
-	fmt.Printf(inputJson)
+	// fmt.Printf(inputJson)
+	var json []Json
+	json.Unmarshal([]byte(birdJson), &birds)
+
 }
