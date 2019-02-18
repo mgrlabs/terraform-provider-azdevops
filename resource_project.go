@@ -25,6 +25,7 @@ func resourceAzureDevOpsProject() *schema.Resource {
 			"visibility": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Default:  "Private",
 			},
 			"version_control": &schema.Schema{
 				Type:     schema.TypeString,
@@ -52,6 +53,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 		d.Get("work_item_process").(string),
 		d.Get("description").(string),
 		d.Get("version_control").(string),
+		d.Get("visibility").(string),
 	)
 
 	d.SetId(data.ID)
