@@ -2,11 +2,23 @@
 
 My `work in progress` Terraform Azure DevOps provider!
 
-## Usage
-It does nothing at this point!
+# Usage
 
-## To-do
-- Learn basic golang
-- Work through the initial writing custom provider section for Terraform
-- Come up with structure for managing API calls into DevOps
-- Get `resource_project.go` resource creation going
+The provider will create the following resources:
+- Azure DevOps Project
+
+```hcl
+# Declare and configure the Azure DevOps Provider
+provider "azdevops" {
+  organization_name = "[devops_organization]"
+  personal_access_token = "[devops_personal_access_token]"
+}
+
+# Create an Azure DevOps Project
+resource "azdevops_project" "sample" {
+  name = "[project_name]"
+  description = "[project_description]"
+  work_item_process = "[work_item_process_name]"
+  version_control = "[version_control_name]"
+}
+```
