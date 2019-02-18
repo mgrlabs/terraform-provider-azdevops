@@ -1,6 +1,6 @@
 # terraform-provider-azdevops
 
-My `work in progress` Terraform Azure DevOps provider!
+The `Azure DevOps Provider` will create and manage projects and resources within Azure DevOps.
 
 # Example Usage
 
@@ -33,8 +33,8 @@ The following arguments are supported:
 ## Resource: azdevops_project
 **name** - The name that will be given to the Azure DevOps project.
 
-**description** - The text that will be entered in the `decription` field of the project configuration.
+**description** - The text that will be entered in the `description` field of the project configuration.
 
-**work_item_process** - The process template that will be used as the basic of tracking work items within the project. Allowed information can be found [here](https://docs.microsoft.com/en-us/azure/devops/boards/work-items/guidance/choose-process?view=azure-devops).
+**work_item_process** - (Optional) The process template that will be used as the basic of tracking work items within the project. More information can be found [here](https://docs.microsoft.com/en-us/azure/devops/boards/work-items/guidance/choose-process?view=azure-devops). Built in allowed values are `CMMI`, `Agile`, `Scrum` and `Basic`. Default value is `Agile`.
 
-**version_control** - The version control system.
+**version_control** - (Optional) The version control system that you want to use for the project. Possible values are `Git` and `Tfvc`. Default value os `Git`.
