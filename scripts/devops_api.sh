@@ -15,7 +15,7 @@ curl -s -H "Authorization: Basic $PAT_ENCODED" \
 
 export/{id}?api-version=5.0-preview.1
 
-curl -s -H "Authorization: Basic $PAT_ENCODED" \
+curl -s -H "Authorization: Basic $PAT_ENCODED" 
   -X GET https://dev.azure.com/$AZDO_ORG/_apis/operations/5a00aa67-9070-47d6-be3f-33021876a01d?api-version=5.0
 
 

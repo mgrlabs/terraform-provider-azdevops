@@ -65,13 +65,16 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourceProjectRead(d *schema.ResourceData, m interface{}) error {
+	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/get%20project%20properties?view=azure-devops-rest-5.0
 	return nil
 }
 
 func resourceProjectUpdate(d *schema.ResourceData, m interface{}) error {
+	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/update?view=azure-devops-rest-5.0
 	return resourceProjectRead(d, m)
 }
 
 func resourceProjectDelete(d *schema.ResourceData, m interface{}) error {
+	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/delete?view=azure-devops-rest-5.0
 	return nil
 }
