@@ -2,5 +2,5 @@
 *.tfstate*
 terraform*
 *.tf
-scripts/devops_api.sh
+scripts/*
 test-code/*

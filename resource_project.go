@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	coreproject "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
@@ -55,7 +57,9 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 		d.Get("version_control").(string),
 		d.Get("visibility").(string),
 	)
-
+	if data.ID == "1" {
+		return fmt.Errorf("%s", data.Status)
+	}
 	d.SetId(data.ID)
 	return resourceProjectRead(d, m)
 }
