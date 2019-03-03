@@ -87,11 +87,13 @@ func resourceProjectDelete(d *schema.ResourceData, m interface{}) error {
 	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/delete?view=azure-devops-rest-5.0
 	provider := m.(*Client)
 
-	coreproject.DeleteProject(
+	data := coreproject.DeleteProject(
 		provider.config.PersonalAccessToken,
 		provider.config.Organization,
 		d.Id(),
 	)
-
+	if data.ID == "1" {
+		return fmt.Errorf("%s", data.Status)
+	}
 	return nil
 }
