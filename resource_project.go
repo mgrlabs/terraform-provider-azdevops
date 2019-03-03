@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	coreproject "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
@@ -47,6 +48,14 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider parameters
 	provider := m.(*Client)
 
+	// Field validation for visibility argument as the API doesn't appear to do it
+	visibility := strings.ToLower(d.Get("visibility").(string))
+	switch visibility {
+	case "public", "private":
+	default:
+		return fmt.Errorf("The visibility type '%s' is invalid. Expected value: Public or Private.", d.Get("visibility").(string))
+	}
+
 	// Call CreateProject API and pass in required parms
 	data := coreproject.CreateProject(
 		provider.config.PersonalAccessToken,
@@ -55,7 +64,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 		d.Get("work_item_process").(string),
 		d.Get("description").(string),
 		d.Get("version_control").(string),
-		d.Get("visibility").(string),
+		visibility,
 	)
 	if data.ID == "1" {
 		return fmt.Errorf("%s", data.Status)
