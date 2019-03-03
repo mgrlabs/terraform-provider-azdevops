@@ -90,8 +90,8 @@ func resourceProjectDelete(d *schema.ResourceData, m interface{}) error {
 	coreproject.DeleteProject(
 		provider.config.PersonalAccessToken,
 		provider.config.Organization,
-		d.Get("name").(string),
+		d.Id(),
 	)
-	d.SetId("")
+
 	return nil
 }
