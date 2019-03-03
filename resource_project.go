@@ -48,7 +48,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider parameters
 	provider := m.(*Client)
 
-	// Field validation for visibility argument as the API doesn't appear to do it
+	// Validation for visibility argument as the API doesn't appear to do it
 	visibility := strings.ToLower(d.Get("visibility").(string))
 	switch visibility {
 	case "public", "private":
@@ -85,5 +85,13 @@ func resourceProjectUpdate(d *schema.ResourceData, m interface{}) error {
 
 func resourceProjectDelete(d *schema.ResourceData, m interface{}) error {
 	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/delete?view=azure-devops-rest-5.0
+	provider := m.(*Client)
+
+	coreproject.DeleteProject(
+		provider.config.PersonalAccessToken,
+		provider.config.Organization,
+		d.Get("name").(string),
+	)
+	d.SetId("")
 	return nil
 }
