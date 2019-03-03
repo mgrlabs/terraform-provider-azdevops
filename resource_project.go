@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/validation"
 	coreproject "github.com/mgrlabs/go-azure-devops-api/core/project/5.0"
 )
 
@@ -29,11 +29,19 @@ func resourceAzureDevOpsProject() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "Private",
+				ValidateFunc: validation.StringInSlice([]string{
+					"Private",
+					"Public",
+				}, true),
 			},
 			"version_control": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "Git",
+				ValidateFunc: validation.StringInSlice([]string{
+					"Git",
+					"Tfvc",
+				}, true),
 			},
 			"work_item_process": &schema.Schema{
 				Type:     schema.TypeString,
@@ -48,14 +56,6 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 	// Get provider parameters
 	provider := m.(*Client)
 
-	// Validation for visibility argument as the API doesn't appear to do it
-	visibility := strings.ToLower(d.Get("visibility").(string))
-	switch visibility {
-	case "public", "private":
-	default:
-		return fmt.Errorf("The visibility type '%s' is invalid. Expected value: Public or Private.", d.Get("visibility").(string))
-	}
-
 	// Call CreateProject API and pass in required parms
 	data := coreproject.CreateProject(
 		provider.config.PersonalAccessToken,
@@ -64,7 +64,7 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 		d.Get("work_item_process").(string),
 		d.Get("description").(string),
 		d.Get("version_control").(string),
-		visibility,
+		d.Get("visibility").(string),
 	)
 	if data.ID == "1" {
 		return fmt.Errorf("%s", data.Status)
@@ -75,6 +75,12 @@ func resourceProjectCreate(d *schema.ResourceData, m interface{}) error {
 
 func resourceProjectRead(d *schema.ResourceData, m interface{}) error {
 	// https://docs.microsoft.com/en-us/rest/api/azure/devops/core/projects/get%20project%20properties?view=azure-devops-rest-5.0
+
+	// Use this method to set the properties to current state
+	// https://github.com/terraform-providers/terraform-provider-azurerm/blob/master/azurerm/data_source_storage_account.go
+	// d.Set("access_tier", props.AccessTier)
+	// d.Set("enable_https_traffic_only", props.EnableHTTPSTrafficOnly)
+
 	return nil
 }
 
